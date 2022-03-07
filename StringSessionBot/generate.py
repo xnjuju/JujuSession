@@ -105,8 +105,11 @@ async def generate_session(bot, msg, telethon=False):
         except (PasswordHashInvalid, PasswordHashInvalidError):
             await two_step_msg.reply('Invalid Password Provided. Please start generating session again.', quote=True, reply_markup=InlineKeyboardMarkup(Data.generate_button))
             return
-
-
+    if telethon:
+        string_session = client.session()
+    else:
+        string_session = await client.export_session_string()
+    text = "**{} String Session** \n\n`{}` \n\nSupport : @JuUserBot".format("TELETHON" if telethon else "PYROGRAM", string_session)
     try:
         await client.send_message("me", text)
     except KeyError:
