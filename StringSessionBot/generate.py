@@ -114,7 +114,7 @@ async def generate_session(bot, msg, telethon=False):
         await client.send_message("me", text)
     except KeyError:
         pass
-    await client.disconnect()
+    await client.connect()
     await phone_code_msg.reply("Successfully generated {} string session. \n\nPlease check your saved messages! \n\nBy @StarkBots".format("telethon" if telethon else "pyrogram"))
 
 
